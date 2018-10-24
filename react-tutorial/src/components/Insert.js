@@ -19,7 +19,8 @@ class Insert extends Component {
         this.state = {
             type : "",
             content : "",
-            flag : ""
+            flag : "",
+            value:'select'
         };
         this.handleChange = this.handleChange.bind(this);
   }
@@ -28,6 +29,12 @@ class Insert extends Component {
        let nextState = {};
        nextState[e.target.name] = e.target.value;
        this.setState(nextState);
+  }
+
+  onChange(e) {
+    this.setState({
+      value: e.target.value
+    })
   }
 
   handleSubmit = event => {
@@ -59,13 +66,22 @@ class Insert extends Component {
     return (
       <div>
         <Header />
+        <div class="container">
         <form onSubmit={this.handleSubmit}>
-          <label>
-            type : <input type="text" name="type" id="type" value={this.state.type} onChange={this.handleChange} /> &nbsp;
-            content : <input type="text" name="content" id = "content" value={this.state.content} onChange={this.handleChange} />
-          </label>
-          <button type="submit">등록하기</button>
+          <div className="form-group">
+            content : <input type="text" name="content" id = "content" value={this.state.content} onChange={this.handleChange} className="form-control"/>
+          </div>
+          <div className="form-group">
+            <select value={this.state.value} onChange={this.onChange.bind(this)} name="type" className="form-control">
+              <option value="select">Select an Option</option>
+              <option value="1">준비물</option>
+              <option value="2">스터디</option>
+              <option value="3">회사</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-dark">등록하기</button>
         </form>
+        </div>
       </div>
     )
   }
