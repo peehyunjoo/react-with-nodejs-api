@@ -41,13 +41,14 @@ class App extends Component {
 
       const movieList = items.map(
           item => (
-            <div className="container" key={item.id}>
+            <div className="container" key={item.idx}>
               <div className="row">
                 <div className="Card col-md-6 offset-md-3 card">
-                  <ul>
-                    <List name={item.name}/> <input type="checkbox" name="chk[]" />
-                    <List id={item.id}/>
-                  </ul>
+                  {
+                    item.flag === "1"
+                     ?(<ul class="decoration"> <List name={item.content}/> <List id={item.reg_date}/> </ul>)
+                     :(<ul> <List name={item.content}/> <List id={item.reg_date}/></ul>)
+                  }
                 </div>
               </div>
             </div>

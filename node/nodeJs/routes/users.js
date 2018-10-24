@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // qs모듈로 쿼리스트�
 });*/
 
 exports.users = function (req, res) {
-    connection.query('select * from member', function (err, rows, fields) {
+    connection.query('select * from schedule order by flag asc', function (err, rows, fields) {
         res.json(rows);
     });
 };

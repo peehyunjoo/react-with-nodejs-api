@@ -12,6 +12,7 @@ class List extends Component{
         <li>
           {this.props.name}
           {this.props.id}
+          {this.props.flag}
         </li>
     );
   }
