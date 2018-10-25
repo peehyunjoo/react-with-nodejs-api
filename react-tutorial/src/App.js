@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from './components/Header';
 import 'bootstrap';
+import axios from 'axios';
 import List from './List';
-import * as $ from 'jquery';
-window.jQuery = window.$ = $
 
 class App extends Component {
 
@@ -35,6 +34,29 @@ class App extends Component {
 
       )
     }
+
+    handleClick(value){
+      console.log(value);
+      const user = {
+        idx: value,
+        flag: '1'
+    };
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Accept': 'application/json'
+        }
+      };
+
+      axios.post('http://localhost:3001/update', user)
+        .then(function (response) { 
+          window.location.href = "/";
+        })
+        .catch(function (error) {
+          alert(error);
+        });
+    }
   render() {
       const { items } = this.state;
       console.log(items);
@@ -46,8 +68,8 @@ class App extends Component {
                 <div className="Card col-md-6 offset-md-3 card">
                   {
                     item.flag === "1"
-                     ?(<ul class="decoration"> <List name={item.content}/> <List id={item.reg_date}/> </ul>)
-                     :(<ul> <List name={item.content}/> <List id={item.reg_date}/></ul>)
+                     ?(<ul class="decoration"> <li value={item} onClick={this.handleClick.bind(this,item.idx)}> {item.content}</li> <li> {item.reg_date}</li> </ul>)
+                     :(<ul> <li onClick={this.handleClick.bind(this,item.idx)}>{item.content}</li> <li>{item.reg_date}</li> </ul>)
                   }
                 </div>
               </div>

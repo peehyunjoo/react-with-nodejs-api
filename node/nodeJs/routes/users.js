@@ -42,5 +42,22 @@ exports.insert = function (req,res) {
     });
 };
 
+exports.update = function (req,res) {
+    var value = {'idx' : req.body.idx,
+                'flag' : req.body.flag
+                };
+    var idx = req.body.idx;
+    var flag = req.body.flag;
+    var query = connection.query('update schedule set ? WHERE idx = ?', [{ flag: flag}, idx], function(err,result){
+
+      if(err){
+        console.log(err);
+      } else {
+        console.log("success");
+        res.send("success");
+      }
+    });
+};
+
 
 //module.exports = router;

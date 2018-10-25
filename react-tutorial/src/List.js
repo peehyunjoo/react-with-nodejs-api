@@ -5,13 +5,13 @@ import './App.css';
 class List extends Component{
 
   handleClick(event){
-    event.currentTarget.style.textDecoration='line-through';
+    console.log('asdf');
   }
   render(){
     return(
-        <li>
-          {this.props.name}
-          {this.props.id}
+        <li onClick={this.handleClick.bind(this)}>
+          {this.props.content}
+          {this.props.reg_date}
           {this.props.flag}
         </li>
     );
