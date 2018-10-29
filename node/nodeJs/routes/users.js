@@ -17,11 +17,49 @@ app.use(bodyParser.urlencoded({ extended: true })); // qs모듈로 쿼리스트�
   })
 });*/
 
-exports.users = function (req, res) {
-    connection.query('select * from schedule order by flag asc', function (err, rows, fields) {
+
+exports.deleteusers = function (req, res) {
+
+    connection.query('select * from schedule', function(err, rows, fields){
+      if(err){
+        console.log(err);
+      } else {
+        console.log("success");
         res.json(rows);
+      }
     });
+
 };
+exports.users = function (req, res) {
+  var activepage = req.query['activepage'];
+  var itemsCountPerPage = req.query['itemsCountPerPage'];
+
+  var activepage = parseInt(activepage);
+  var itemsCountPerPage = parseInt(itemsCountPerPage);
+
+
+  var start = ((activepage - 1) * itemsCountPerPage) ;
+  var end = itemsCountPerPage;
+  var value = { start,
+                end
+              }
+  console.log("activePage***",activepage);
+  console.log("LIMIT",value);
+
+    connection.query('select * from schedule order by flag asc limit ? , ?', [ start , end], function(err, rows, fields){
+      if(err){
+        console.log(err);
+      } else {
+        console.log("success");
+        console.log(rows);
+        //res.json(rows);
+        res.send(rows);
+      }
+    });
+
+};
+
+
 
 exports.insert = function (req,res) {
     var value = {'type' : req.body.type,
@@ -38,6 +76,7 @@ exports.insert = function (req,res) {
         console.log(err);
       } else {
         console.log("success");
+        res.send("success");
       }
     });
 };
@@ -59,5 +98,20 @@ exports.update = function (req,res) {
     });
 };
 
+exports.delete = function (req,res) {
+    var value = {'idx' : req.body.idx
+                };
+    var idx = req.body.idx;
+    console.log(idx);
+    var query = connection.query('delete from schedule WHERE idx = ?', idx, function(err,result){
+
+      if(err){
+        console.log(err);
+      } else {
+        console.log("success");
+        res.send("success");
+      }
+    });
+};
 
 //module.exports = router;

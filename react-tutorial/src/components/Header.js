@@ -16,7 +16,7 @@ const Header = () => {
             <a href="/">Home</a>
           </li>
           <li>
-            <a href="/Home">중요도로 보기</a>
+            <a href="/Delete">삭제</a>
           </li>
           <li>
             <a href="#">날짜로 보기</a>

@@ -25,6 +25,8 @@ app.use('/', indexRouter);      //ejs로 뿌릴떄
 app.get('/users', usersRouter.users);       //restAPi로 값만 뿌려줄때
 app.post('/insert', usersRouter.insert);
 app.post('/update', usersRouter.update);
+app.post('/delete', usersRouter.delete);
+app.get('/deleteusers', usersRouter.deleteusers);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

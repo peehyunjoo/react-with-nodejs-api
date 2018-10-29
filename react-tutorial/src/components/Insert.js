@@ -55,6 +55,7 @@ class Insert extends Component {
      axios.post('http://localhost:3001/insert', user)
       .then(function (response) {
         alert('등록 되었습니다.');
+        window.location.href = "/";
       })
       .catch(function (error) {
         console.log(error);

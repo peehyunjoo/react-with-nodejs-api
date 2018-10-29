@@ -4,15 +4,15 @@ import './index.css';
 import App from './App';
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
 
-import Home from './components/Home';
 import Insert from './components/Insert';
+import Delete from './components/Delete';
 
 ReactDOM.render(
   <BrowserRouter>
         <div className="App">
           <Switch>
             <Route exact path="/" component={App}/>
-            <Route exact path="/Home" component={Home}/>
+            <Route exact path="/Delete" component={Delete}/>
             <Route path="/Insert" component={Insert}/>
           </Switch>
         </div>
