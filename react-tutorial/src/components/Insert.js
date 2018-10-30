@@ -84,7 +84,9 @@ class Insert extends Component {
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
             content : <input type="text" name="content" id = "content" value={this.state.content} onChange={this.handleChange} className="form-control"/>
-            <DatePicker dateFormat="YYYY-MM-DD" selected={this.state.startDate} name="startDate" onChange={this.dateChange} />
+          </div>
+          <div className="form-group">
+          <DatePicker dateFormat="YYYY-MM-DD" selected={this.state.startDate} name="startDate" onChange={this.dateChange} className="form-control"/>
           </div>
           <div className="form-group">
             <select value={this.state.type} onChange={this.onChange.bind(this)} name="type" className="form-control">

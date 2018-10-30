@@ -63,11 +63,17 @@ class App extends Component {
 
       )
     }
-    handleClick(value){
+    handleClick(value,flag){
       console.log(value);
+
+      if(flag == 1){
+        flag = '0';
+      }else{
+        flag = '1';
+      }
       const user = {
         idx: value,
-        flag: '1'
+        flag: flag
     };
 
       const config = {
@@ -94,8 +100,8 @@ class App extends Component {
                 <div className="Card col-md-6 offset-md-3 card">
                   {
                     item.flag === "1"
-                     ?(<ul class="decoration"> <li value={item} onClick={this.handleClick.bind(this,item.idx)}> {item.content}</li> <li> {item.reg_date}</li> </ul>)
-                     :(<ul> <li onClick={this.handleClick.bind(this,item.idx)}>{item.content}</li> <li>{item.reg_date}</li> </ul>)
+                     ?(<ul class="decoration"> <li value={item} onClick={this.handleClick.bind(this,item.idx,item.flag)}> {item.content}</li> <li> {item.reg_date}</li> </ul>)
+                     :(<ul> <li onClick={this.handleClick.bind(this,item.idx,item.flag)}>{item.content}</li> <li>{item.reg_date}</li> </ul>)
                   }
                 </div>
               </div>
