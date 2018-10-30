@@ -3,7 +3,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from '../components/Header';
 import axios from 'axios';
 import React, { Component } from 'react';
-
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+import 'react-datepicker/dist/react-datepicker.css';
 /*const Insert = () => {
 
     return (
@@ -14,15 +16,19 @@ import React, { Component } from 'react';
     );
 };*/
 class Insert extends Component {
+  
   constructor(props) {
+    
         super(props);
         this.state = {
             type : "",
             content : "",
             flag : "",
-            value:'select'
+            value:'select',
+            startDate : moment()
         };
         this.handleChange = this.handleChange.bind(this);
+        this.dateChange = this.dateChange.bind(this);
   }
 
   handleChange(e) {
@@ -30,6 +36,11 @@ class Insert extends Component {
        nextState[e.target.name] = e.target.value;
        this.setState(nextState);
   }
+  dateChange(e) {
+    this.setState({
+      startDate: e
+    });
+}
 
   onChange(e) {
     this.setState({
@@ -43,7 +54,9 @@ class Insert extends Component {
     const user = {
       type: this.state.type,
       content: this.state.content,
-      flag: '0'
+      flag: '0',
+      title : this.state.title,
+      date : this.state.startDate
   };
 
     const config = {
@@ -71,9 +84,10 @@ class Insert extends Component {
         <form onSubmit={this.handleSubmit}>
           <div className="form-group">
             content : <input type="text" name="content" id = "content" value={this.state.content} onChange={this.handleChange} className="form-control"/>
+            <DatePicker dateFormat="YYYY-MM-DD" selected={this.state.startDate} name="startDate" onChange={this.dateChange} />
           </div>
           <div className="form-group">
-            <select value={this.state.value} onChange={this.onChange.bind(this)} name="type" className="form-control">
+            <select value={this.state.type} onChange={this.onChange.bind(this)} name="type" className="form-control">
               <option value="select">Select an Option</option>
               <option value="1">준비물</option>
               <option value="2">스터디</option>

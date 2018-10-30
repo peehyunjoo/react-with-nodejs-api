@@ -27,6 +27,9 @@ const Header = () => {
           <li>
             <a href="/insert">등록하기</a>
           </li>
+          <li>
+            <a href="/Login">로그인</a>
+          </li>
         </ul>
       </nav>
 

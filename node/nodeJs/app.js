@@ -27,6 +27,7 @@ app.post('/insert', usersRouter.insert);
 app.post('/update', usersRouter.update);
 app.post('/delete', usersRouter.delete);
 app.get('/deleteusers', usersRouter.deleteusers);
+app.post('/login', usersRouter.login);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -59,17 +59,12 @@ exports.users = function (req, res) {
 
 };
 
-
-
 exports.insert = function (req,res) {
     var value = {'type' : req.body.type,
                 'content' : req.body.content,
-                'flag' : req.body.flag
+                'flag' : req.body.flag,
+                'end_date' :req.body.date
                 };
-
-    var type = req.body.type;
-    var content = req.body.content;
-    var flag = req.body.flag;
     var query = connection.query('insert into schedule set ?', value,function(err,result){
 
       if(err){
@@ -112,6 +107,27 @@ exports.delete = function (req,res) {
         res.send("success");
       }
     });
+};
+
+
+exports.login = function (req, res) {
+  console.log("**");
+  var value = {'id' : req.body.id,
+               'pwd' : req.body.pwd
+              };
+    var id = req.body.id;
+    var pwd = req.body.pwd;
+    console.log("PWD",value);
+    connection.query('select * from user WHERE id = ? and pwd =?', [id, pwd], function(err,result){
+
+      if(err){
+        console.log(err);
+      } else {
+        console.log("success");
+        res.json(result);
+      }
+    });
+
 };
 
 //module.exports = router;
