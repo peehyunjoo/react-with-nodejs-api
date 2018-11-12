@@ -5,9 +5,9 @@ import 'bootstrap';
 import axios from 'axios';
 import Pagination from "react-js-pagination";
 import List from './List';
-
+import moment from 'moment';
+import Modal from "react-bootstrap-modal";
 class App extends Component {
-
  constructor(props) {
     super(props);
     this.state = {
@@ -17,7 +17,11 @@ class App extends Component {
       activePage: 1
     };
     this.handlePageChange = this.handlePageChange.bind(this);
-    fetch("http://localhost:3001/users?activepage="+this.state.activePage+"&itemsCountPerPage=5")
+  }
+    
+  componentDidMount (){
+    console.log("DID")
+  fetch("http://localhost:3001/users?activepage="+this.state.activePage+"&itemsCountPerPage=5")
     .then(res => res.json()) // 여기서 json 객체로 변환
       .then(
           (result) => {
@@ -35,10 +39,8 @@ class App extends Component {
               });
           }
 
-      )
+      )   
     }
-
-    
     handlePageChange(pageNumber){
       console.log('active page is', pageNumber);
       this.setState({activePage: pageNumber});
@@ -74,7 +76,7 @@ class App extends Component {
       const user = {
         idx: value,
         flag: flag
-    };
+      };
 
       const config = {
         headers: {
@@ -91,8 +93,20 @@ class App extends Component {
           alert(error);
         });
     }
-  render() {
+    componentDidUpdate(){
+      console.log("update")
+    }
+    render() { 
+      console.log('render')
+      
       const { items } = this.state;
+      let result ='';
+      let confirm = '';
+      items.map(
+        modal => (
+          moment(modal.end_date).format("YYYY-MM-DD") === "2018-11-03" ? confirm = '1' : result = '2'
+        )  
+      )   
       const movieList = items.map(
           item => (
             <div className="container" key={item.idx}>
@@ -113,17 +127,22 @@ class App extends Component {
           <div>
             <Header/>
             {movieList}
-            <div>
-            <Pagination
-              activePage={this.state.activePage}
-              itemsCountPerPage={1}
-              totalItemsCount={items.length}
-              pageRangeDisplayed={3}
-              onChange={this.handlePageChange}
-            />
+            <div class="container">
+              <div class="row">
+              <div class="col-md-6 offset-md-5">
+                <Pagination
+                  activePage={this.state.activePage}
+                  itemsCountPerPage={1}
+                  totalItemsCount={items.length}
+                  pageRangeDisplayed={3}
+                  onChange={this.handlePageChange}
+                />
+              </div>
+              </div>
             </div>
           </div>
       );
-  }
+    } 
+  
 }
 export default App;
