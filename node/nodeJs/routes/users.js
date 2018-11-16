@@ -111,20 +111,19 @@ exports.delete = function (req,res) {
 
 
 exports.login = function (req, res) {
-  console.log("**");
   var value = {'id' : req.body.id,
                'pwd' : req.body.pwd
               };
     var id = req.body.id;
     var pwd = req.body.pwd;
     console.log("PWD",value);
-    connection.query('select * from user WHERE id = ? and pwd =?', [id, pwd], function(err,result){
-
+    connection.query('select id from user WHERE id = ? and pwd =?', [id, pwd], function(err, rows, fields){
       if(err){
         console.log(err);
       } else {
-        console.log("success");
-        res.json(result);
+        console.log(rows);
+        //res.json(result);
+        res.send("success");
       }
     });
 

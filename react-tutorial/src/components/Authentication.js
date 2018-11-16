@@ -10,6 +10,23 @@ class Authentication extends React.Component {
             pwd: ""
         };
         this.handleChange = this.handleChange.bind(this);
+        this.handleLogin = this.handleLogin.bind(this);
+    }
+
+    handleLogin() {
+        let id = this.state.id;
+        let pwd = this.state.pwd;
+        
+        this.props.onLogin(id, pwd).then(
+            (success) => {
+                console.log('3',success);
+                if(!success) {
+                    this.setState({
+                        pwd: ''
+                    });
+                }
+            }
+        );
     }
 
     handleChange(e){
@@ -46,7 +63,7 @@ class Authentication extends React.Component {
                 <div className="card-content">
                     <div className="row">
                         {inputBoxes}
-                        <a className="waves-effect waves-light btn">SUBMIT</a>
+                        <a className="waves-effect waves-light btn" onClick={this.handleLogin}>SUBMIT</a>
                     </div>
                 </div>
                 <div className="footer">
@@ -81,6 +98,7 @@ class Authentication extends React.Component {
         );
     }
 }
+
 Authentication.propTypes = {
     mode: PropTypes.bool,
     onLogin: PropTypes.func,
@@ -89,7 +107,7 @@ Authentication.propTypes = {
 
 Authentication.defaultProps = {
     mode : true,
-    onLogin : (id, pw) => { console.error("login function not    defined"); },
+    onLogin : (id, pwd) => { console.error("login function not defined"); },
     onRegister : (id, pwd) => { console.error("register function not defined"); }
 };
 

@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {
     AUTH_LOGIN,
     AUTH_LOGIN_SUCCESS,
@@ -5,8 +6,22 @@ import {
 } from './ActionTypes';
 
 export function loginRequest(id, pwd){
+    return (dispatch) => {
+        dispatch(login());
+        console.log('1');
+        return axios.post('http://localhost:3001/login',{id, pwd})
+        .then((res) => {
+            console.log(res);
+            dispatch(loginSuccess(id));
+        }).catch((error) => {
+            dispatch(loginFailure());
+        });
+    };
+}
+
+export function login(){
     return {
-        type : AUTH_LOGIN
+        type: AUTH_LOGIN
     };
 }
 
